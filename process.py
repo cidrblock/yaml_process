@@ -2,6 +2,15 @@ import os
 import yaml
 from pprint import pprint
 
+class ExplicitDumper(yaml.SafeDumper):
+    """
+    A dumper that will never emit aliases.
+    """
+
+    def ignore_aliases(self, data):
+        return True
+
+
 dir = 'preprocessed/host_vars'
 standards_dir = 'preprocessed/standards'
 
@@ -30,7 +39,8 @@ for filename in os.listdir(dir):
         new_file += ('\n')
         new_file += ('\n')
     result = yaml.load(new_file)
+    print result
     with open(os.path.join('host_vars', filename), 'w') as f:
-        yaml.dump(result, f, default_flow_style=False)
+        yaml.dump(result, f, default_flow_style=False, Dumper=ExplicitDumper)
 
         # f.write(new_file)

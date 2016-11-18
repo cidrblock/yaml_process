@@ -3,7 +3,7 @@ interfaces:
   name: Ethernet4/13
   switchport:
     mode: access
-    spanning-tree: &id003
+    spanning-tree:
       port_type: edge
     type: switchport
     vlan: 105
@@ -18,9 +18,9 @@ portchannels:
   mtu: 9216
   switchport:
     mode: trunk
-    spanning-tree: &id001
+    spanning-tree:
       port_type: edge trunk
-    trunk: &id002
+    trunk:
       native_vlan: 5
     type: switchport
     vlans_allowed:
@@ -34,20 +34,26 @@ portchannels:
   mtu: 9216
   switchport:
     mode: trunk
-    spanning-tree: *id001
-    trunk: *id002
+    spanning-tree:
+      port_type: edge trunk
+    trunk:
+      native_vlan: 5
     type: switchport
-    vlans_allowed: &id004
+    vlans_allowed:
     - all
   vpc_id: 32
 switchport_access:
   mode: access
-  spanning-tree: *id003
+  spanning-tree:
+    port_type: edge
   type: switchport
   vlan: 100
 switchport_trunk:
   mode: trunk
-  spanning-tree: *id001
-  trunk: *id002
+  spanning-tree:
+    port_type: edge trunk
+  trunk:
+    native_vlan: 5
   type: switchport
-  vlans_allowed: *id004
+  vlans_allowed:
+  - all
