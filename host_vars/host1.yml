@@ -1,47 +1,53 @@
-switchport_trunk: &switchport_trunk
-  type: switchport
-  mode: trunk
-  trunk:
-    native_vlan: 5
-  vlans_allowed:
-    - all
-  spanning-tree:
-    port_type: edge trunk
-
-portchannel: &portchannel
+interfaces:
+- description: server1
+  name: Ethernet4/13
+  switchport:
+    mode: access
+    spanning-tree: &id003
+      port_type: edge
+    type: switchport
+    vlan: 101
+portchannel:
   channel_group_mode: active
   mtu: 9216
-
-switchport_access: &switchport_access
-  type: switchport
-  mode: access
-  vlan: 100
-  spanning-tree:
-    port_type: edge
-
 portchannels:
-  - <<: *portchannel
-    vpc_id: 31
-    description: unity1
-    members:
-      - Ethernet4/11
-    switchport:
-      <<: *switchport_trunk
-      vlans_allowed:
-        - 3605
-        - 3607
-  - <<: *portchannel
-    vpc_id: 32
-    description: unity2
-    members:
-      - Ethernet4/12
-    switchport:
-      <<: *switchport_trunk
-
-interfaces:
-  - description: server1
-    name: Ethernet4/13
-    switchport:
-      <<: *switchport_access
-      vlan: 101
-
+- channel_group_mode: active
+  description: unity1
+  members:
+  - Ethernet4/11
+  mtu: 9216
+  switchport:
+    mode: trunk
+    spanning-tree: &id001
+      port_type: edge trunk
+    trunk: &id002
+      native_vlan: 5
+    type: switchport
+    vlans_allowed:
+    - 3605
+    - 3607
+  vpc_id: 31
+- channel_group_mode: active
+  description: unity2
+  members:
+  - Ethernet4/12
+  mtu: 9216
+  switchport:
+    mode: trunk
+    spanning-tree: *id001
+    trunk: *id002
+    type: switchport
+    vlans_allowed: &id004
+    - all
+  vpc_id: 32
+switchport_access:
+  mode: access
+  spanning-tree: *id003
+  type: switchport
+  vlan: 100
+switchport_trunk:
+  mode: trunk
+  spanning-tree: *id001
+  trunk: *id002
+  type: switchport
+  vlans_allowed: *id004

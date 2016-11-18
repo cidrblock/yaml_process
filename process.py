@@ -29,6 +29,8 @@ for filename in os.listdir(dir):
         new_file += ('\n').join(chunk)
         new_file += ('\n')
         new_file += ('\n')
-    print new_file
+    result = yaml.load(new_file)
     with open(os.path.join('host_vars', filename), 'w') as f:
-        f.write(new_file)
+        yaml.dump(result, f, default_flow_style=False)
+
+        # f.write(new_file)
