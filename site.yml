@@ -1,3 +1,11 @@
+  - name: process
+    hosts: localhost
+    connection: local
+    gather_facts: no
+    roles:
+      - process_yaml
+
+
   - name: Test yaml processing
     hosts: all
     connection: local
