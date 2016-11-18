@@ -1,7 +1,8 @@
 ---
 # tasks file for process_yaml
 - name: process
-  command: ./process.py
+  process_yaml:
+    process: true
 
 - name: refresh inventory
   meta: refresh_inventory
