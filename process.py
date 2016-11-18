@@ -2,8 +2,8 @@ import os
 import yaml
 from pprint import pprint
 
-dir = 'host_vars'
-standards_dir = 'standards'
+dir = 'preprocessed/host_vars'
+standards_dir = 'preprocessed/standards'
 
 def recurse(file):
     response = []
@@ -28,4 +28,7 @@ for filename in os.listdir(dir):
     for chunk in reversed(new_contents):
         new_file += ('\n').join(chunk)
         new_file += ('\n')
-    pprint(yaml.load(new_file))
+        new_file += ('\n')
+    print new_file
+    with open(os.path.join('host_vars', filename), 'w') as f:
+        f.write(new_file)

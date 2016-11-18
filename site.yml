@@ -1,0 +1,6 @@
+  - name: Test yaml processing
+    hosts: all
+    connection: local
+    gather_facts: no
+    roles:
+      - print_hostvars

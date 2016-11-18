@@ -1,0 +1,6 @@
+switchport_access: &switchport_access
+  type: switchport
+  mode: access
+  vlan: 100
+  spanning-tree:
+    port_type: edge

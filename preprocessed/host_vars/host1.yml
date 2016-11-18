@@ -1,24 +1,3 @@
-switchport_trunk: &switchport_trunk
-  type: switchport
-  mode: trunk
-  trunk:
-    native_vlan: 5
-  vlans_allowed:
-    - all
-  spanning-tree:
-    port_type: edge trunk
-
-portchannel: &portchannel
-  channel_group_mode: active
-  mtu: 9216
-
-switchport_access: &switchport_access
-  type: switchport
-  mode: access
-  vlan: 100
-  spanning-tree:
-    port_type: edge
-
 portchannels:
   - <<: *portchannel
     vpc_id: 31
@@ -44,4 +23,3 @@ interfaces:
     switchport:
       <<: *switchport_access
       vlan: 101
-
